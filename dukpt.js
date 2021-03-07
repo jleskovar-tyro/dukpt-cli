@@ -56,9 +56,10 @@ program
 program
   .command('hsm-pin-trans <srcBdk> <srcKsn> <dstBdk> <dstKsn> <accountNumber> <srcPinBlock>')
   .description('Translate encrypted BDK from source BDK to another BDK [G0 command]')
-  .action((sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock) => {
+  .action(async (sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock) => {
     const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
-    console.log(thales.translatePinBlock(sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock))
+    const translatedPinBlock = await thales.translatePinBlock(sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock)
+    console.log(translatedPinBlock)
   })
 
 program

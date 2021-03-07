@@ -26,6 +26,7 @@
     "commander": "^7.1.0",
     "data-crypto": "^1.4.3",
     "dukpt": "^3.0.0",
+    "promise-socket": "^7.0.0",
     "struct": "^0.0.12"
   },
   "bin": {
