@@ -1,0 +1,25 @@
+{
+  "name": "dukpt-cli",
+  "version": "1.0.0",
+  "description": "DUKPT / Thales HSM Payshield 9000 cli",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jleskovar-tyro/dukpt-cli.git"
+  },
+  "keywords": [
+    "dukpt",
+    "cli",
+    "hsm",
+    "thales"
+  ],
+  "author": "James Leskovar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jleskovar-tyro/dukpt-cli/issues"
+  },
+  "homepage": "https://github.com/jleskovar-tyro/dukpt-cli#readme"
+}
