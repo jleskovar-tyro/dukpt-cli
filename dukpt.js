@@ -55,7 +55,7 @@ program
 
 program
   .command('hsm-pin-trans <srcBdk> <srcKsn> <dstBdk> <dstKsn> <accountNumber> <srcPinBlock>')
-  .description('Translate encrypted BDK from source BDK to another BDK [G0 command]')
+  .description('Translate encrypted BDK from type-1 source BDK to another type-1 BDK [G0 command]')
   .action(async (sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock) => {
     const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
     const translatedPinBlock = await thales.translatePinBlock(sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock)
@@ -64,11 +64,12 @@ program
 
 program
   .command('hsm-gen-mac <encryptedBdk> <ksn> <data>')
-  .description('Generate MAC [GW command]')
-  .action((encryptedBdk, ksn, data) => {
+  .description('Generate MAC (Mode 4: 8-byte MAC) [GW command]')
+  .action(async (encryptedBdk, ksn, data) => {
     const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
     data = Utils.parseInputData(data)
-    console.log(thales.generateMac(encryptedBdk, ksn, data))
+    const mac = await thales.generateMac(encryptedBdk, ksn, data)
+    console.log(mac)
   })
 
 program.parse(process.argv);

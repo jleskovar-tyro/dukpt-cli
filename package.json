@@ -27,6 +27,7 @@
     "data-crypto": "^1.4.3",
     "dukpt": "^3.0.0",
     "dukpt-cli": "^0.0.2",
+    "hexy": "^0.3.1",
     "promise-socket": "^7.0.0",
     "struct": "^0.0.12"
   },
