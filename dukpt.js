@@ -39,6 +39,14 @@ program
   })
 
 program
+  .command('mac-cryptojs <bdk> <ksn> <data>')
+  .description('generate MAC [CryptoJS]')
+  .action((bdk, ksn, data) => {
+    const dukpt = new Dukpt(bdk, ksn, 'mackey');
+    console.log(DukptMac.generateCryptojs(dukpt._sessionKey, Utils.parseInputData(data)))
+  })
+
+program
   .command('encrypt <bdk> <ksn> <data>')
   .description('encrypt data')
   .action((bdk, ksn, data) => {
