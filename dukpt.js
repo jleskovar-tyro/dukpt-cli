@@ -4,6 +4,7 @@ const { program, Option } = require('commander');
 const { version } = require('./package.json');
 const Dukpt = require('dukpt');
 const { pinBlockFormat0 } = require('data-crypto');
+const DukptMac = require('./lib/dukpt.mac.lib');
 const Utils = require('./lib/util.lib');
 const Thales = require('./lib/thales.hsm.lib');
 
@@ -34,7 +35,7 @@ program
   .description('generate MAC')
   .action((bdk, ksn, data) => {
     const dukpt = new Dukpt(bdk, ksn, 'mackey');
-    console.log(dukpt.dukptEncrypt(Utils.parseInputData(data), { ...dukptOptions }));
+    console.log(DukptMac.generate(dukpt, Utils.parseInputData(data)))
   })
 
 program
