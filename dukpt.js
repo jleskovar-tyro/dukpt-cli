@@ -81,4 +81,24 @@ program
     console.log(mac)
   })
 
+program
+  .command('hsm-encrypt <encryptedBdk> <ksn> <data>')
+  .description('Encrypt Data [M0 command]')
+  .action(async (encryptedBdk, ksn, data) => {
+    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
+    data = Utils.parseInputData(data)
+    const encrypted = await thales.encrypytData(encryptedBdk, ksn, data)
+    console.log(encrypted)
+  })
+
+program
+  .command('hsm-decrypt <encryptedBdk> <ksn> <data>')
+  .description('Decrypt Data [M2 command]')
+  .action(async (encryptedBdk, ksn, data) => {
+    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
+    data = Utils.parseInputData(data)
+    const decrypted = await thales.decrypytData(encryptedBdk, ksn, data)
+    console.log(decrypted)
+  })
+
 program.parse(process.argv);
