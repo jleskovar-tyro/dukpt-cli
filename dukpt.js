@@ -16,7 +16,7 @@ const dukptOptions = {
 
 program
   .version(version)
-  .addOption(new Option('--debug', 'output extra debugging'))
+  .addOption(new Option('--debug', 'output extra debugging').default(false))
   .addOption(new Option('-h, --hsm-host <host>', 'Thales HSM host to connect to, for HSM commands').default('hsm'))
   .addOption(new Option('-p, --hsm-port <port>', 'Thales HSM port to connect to, for HSM commands').default(80))
   .addOption(new Option('-e, --encryption <mode>', 'encryption mode').choices(['3DES', 'AES']).default('3DES'))
@@ -66,7 +66,7 @@ program
   .command('hsm-pin-trans <srcBdk> <srcKsn> <dstBdk> <dstKsn> <accountNumber> <srcPinBlock>')
   .description('Translate encrypted BDK from type-1 source BDK to another type-1 BDK [G0 command]')
   .action(async (sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock) => {
-    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
+    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort, program.opts().debug)
     const translatedPinBlock = await thales.translatePinBlock(sourceBdk, sourceKsn, destBdk, destKsn, accountNumber, sourcePinBlock)
     console.log(translatedPinBlock)
   })
@@ -75,7 +75,7 @@ program
   .command('hsm-gen-mac <encryptedBdk> <ksn> <data>')
   .description('Generate MAC (Mode 4: 8-byte MAC) [GW command]')
   .action(async (encryptedBdk, ksn, data) => {
-    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
+    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort, program.opts().debug)
     data = Utils.parseInputData(data)
     const mac = await thales.generateMac(encryptedBdk, ksn, data)
     console.log(mac)
@@ -85,7 +85,7 @@ program
   .command('hsm-encrypt <encryptedBdk> <ksn> <data>')
   .description('Encrypt Data [M0 command]')
   .action(async (encryptedBdk, ksn, data) => {
-    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
+    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort, program.opts().debug)
     data = Utils.parseInputData(data)
     const encrypted = await thales.encrypytData(encryptedBdk, ksn, data)
     console.log(encrypted)
@@ -95,7 +95,7 @@ program
   .command('hsm-decrypt <encryptedBdk> <ksn> <data>')
   .description('Decrypt Data [M2 command]')
   .action(async (encryptedBdk, ksn, data) => {
-    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort)
+    const thales = new Thales(program.opts().hsmHost, program.opts().hsmPort, program.opts().debug)
     data = Utils.parseInputData(data)
     const decrypted = await thales.decrypytData(encryptedBdk, ksn, data)
     console.log(decrypted)
