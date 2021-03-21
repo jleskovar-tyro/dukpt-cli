@@ -7,6 +7,7 @@ const { pinBlockFormat0 } = require('data-crypto');
 const DukptMac = require('./lib/dukpt.mac.lib');
 const Utils = require('./lib/util.lib');
 const Thales = require('./lib/thales.hsm.lib');
+const omelette = require('omelette')
 
 const dukptOptions = {
   encryptionMode: '3DES',
@@ -20,6 +21,11 @@ program
   .addOption(new Option('-h, --hsm-host <host>', 'Thales HSM host to connect to, for HSM commands').default('hsm'))
   .addOption(new Option('-p, --hsm-port <port>', 'Thales HSM port to connect to, for HSM commands').default(80))
   .addOption(new Option('-e, --encryption <mode>', 'encryption mode').choices(['3DES', 'AES']).default('3DES'))
+
+program
+  .command('init')
+  .description('install shell completion')
+  .action(() => { completion.setupShellInitFile() })
 
 program
   .command('pin <bdk> <ksn> <accountNumber> <pinDigits>')
@@ -100,5 +106,12 @@ program
     const decrypted = await thales.decrypytData(encryptedBdk, ksn, data)
     console.log(decrypted)
   })
+
+const completion = omelette(`dukpt <action>`)
+completion.on('action', ({ reply }) => {
+  reply(program.commands.map((it) => it.name()))
+})
+
+completion.init()
 
 program.parse(process.argv);

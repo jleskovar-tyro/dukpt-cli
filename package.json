@@ -1,6 +1,6 @@
 {
   "name": "dukpt-cli",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "DUKPT / Thales HSM Payshield 9000 cli",
   "main": "dukpt.js",
   "scripts": {
@@ -29,6 +29,7 @@
     "data-crypto": "^1.4.3",
     "dukpt": "^3.0.0",
     "hexy": "^0.3.1",
+    "omelette": "^0.4.15-1",
     "promise-socket": "^7.0.0",
     "struct": "^0.0.12"
   },
