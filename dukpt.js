@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const { program, Option } = require('commander');
 const { version } = require('./package.json');
 const Dukpt = require('dukpt');
