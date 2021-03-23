@@ -1,6 +1,6 @@
 {
   "name": "dukpt-cli",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "DUKPT / Thales HSM Payshield 9000 cli",
   "main": "dist/dukpt.js",
   "scripts": {
